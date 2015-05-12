@@ -64,4 +64,10 @@ output_allow_{{v}}:
 
 forward_drop_invalid_{{v}}:
   iptables.append: [table: filter, family: {{v}}, chain: FORWARD, jump: DROP, match: conntrack, ctstate: 'INVALID', save: true]
+
+forward_allow_related_{{v}}:
+  iptables.append: [table: filter, family: {{v}}, chain: FORWARD, jump: ACCEPT, match: conntrack, ctstate: 'RELATED,ESTABLISHED', save: true]
+
+forward_allow_{{v}}:
+  iptables.append: [table: filter, family: {{v}}, chain: FORWARD, jump: ACCEPT, save: true]
 {% endfor %}
