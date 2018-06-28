@@ -1,0 +1,19 @@
+iptables:
+  sshd:
+    table: filter
+    chain: INPUT
+    jump: ACCEPT
+    match: state
+    connstate: NEW
+    dport: 22
+    proto: tcp
+    sport: 1025:65535
+  https:
+    table: filter
+    chain: INPUT
+    jump: ACCEPT
+    match: state
+    connstate: NEW
+    dports: [80, 443]
+    proto: tcp
+    sport: 1025:65535
