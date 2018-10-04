@@ -19,13 +19,13 @@ input_drop_syn_for_established_connection_{{v}}:
   iptables.append: [table: filter, family: {{v}}, chain: INPUT, jump: DROP, proto: tcp, match: conntrack, ctstate: 'ESTABLISHED', tcp-flags: SYN SYN, save: true]
 
 # Add rules from pillar
-{% for name, rule in pillar['iptables'].items() %}
+{% for name, rule in pillar['iptables']|dictsort %}
 {% for v in [4, 6] %}
 {{ name }}_iptables_ipv{{v}}:
   iptables.append:
     - family: ipv{{v}}
     - save: true
-{% for key, value in rule.items() %}
+{% for key, value in rule|dictsort %}
     - {{ key }}: {{ value }}
 {% endfor -%}
 {% endfor -%}
