@@ -22,7 +22,10 @@ input_drop_syn_for_established_connection_{{v}}:
 {% for name, rule in pillar['iptables']|dictsort %}
 {{ name }}_iptables_{{v}}:
   iptables.append:
+# If no family is given, assume ipv4 and ipv6
+{% if rule['family'] is not defined %}
     - family: {{v}}
+{% endif %}
     - save: true
 {% for key, value in rule|dictsort %}
     - {{ key }}: {{ value }}
