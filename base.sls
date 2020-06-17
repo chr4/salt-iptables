@@ -1,3 +1,6 @@
+include:
+  - iptables
+
 {% for v in ['ipv4', 'ipv6'] %}
 input_policy_{{v}}:
   iptables.set_policy: [table: filter, family: {{v}}, chain: INPUT, policy: DROP, save: true]

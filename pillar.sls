@@ -1,3 +1,6 @@
+include:
+  - iptables
+
 {% for name, rule in pillar['iptables']|dictsort %}
 {% for v in [4, 6] %}
 {{ name }}_iptables_ipv{{v}}:
