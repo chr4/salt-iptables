@@ -24,7 +24,9 @@ input_drop_syn_for_established_connection_{{v}}:
 # Add rules from pillar
 {% for name, rule in pillar['iptables']|dictsort %}
 {{ name }}_iptables_{{v}}:
-  iptables.append:
+  # Using insert, so follow up inserts are not appended to the end
+  iptables.insert:
+    - position: 5
 # If no family is given, assume ipv4 and ipv6
 {% if rule['family'] is not defined %}
     - family: {{v}}
